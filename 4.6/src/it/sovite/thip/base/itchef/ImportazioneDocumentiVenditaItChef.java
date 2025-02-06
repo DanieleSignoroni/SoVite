@@ -140,7 +140,17 @@ public class ImportazioneDocumentiVenditaItChef extends BatchRunnable implements
 	}
 
 	protected void assegnaDatiRiga(DocumentoVenRigaPrm docVenRig, ItChefVendite riga) {
+		docVenRig.completaBO();
 		docVenRig.setArticolo(riga.getArticolo());
+		if(persDatiFogliVenditaItChef.getIdExtra().equals(riga.getArticolo().getIdArticolo())) {
+			riga.setDescrizione(riga.getDescrizione());
+		}else if(persDatiFogliVenditaItChef.getIdEventi().equals(riga.getArticolo().getIdArticolo())) {
+			riga.setDescrizione(riga.getDescrizione());
+		}
+		docVenRig.setIdUMRif(riga.getArticolo().getIdUMRiferimento());
+		docVenRig.setIdUMPrm(riga.getArticolo().getUMDefaultVendita().getIdUnitaMisura());
+		docVenRig.getQtaAttesaEvasione().setQuantitaInUMRif(riga.getQuantita());
+		docVenRig.setPrezzo(riga.getPrezzo());
 	}
 
 	protected void assegnaDatiTestata(DocumentoVendita docVen, ItChefVendite itChefVendite) {
